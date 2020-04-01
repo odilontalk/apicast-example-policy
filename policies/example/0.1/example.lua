@@ -3,7 +3,17 @@ local setmetatable = setmetatable
 local _M = require('apicast.policy').new('Example', '0.1')
 local mt = { __index = _M }
 
+local cjson = require('cjson.safe')
+local http_ng = require 'resty.http_ng'
+
 function _M.new()
+  self.config = config or {}
+  self.http_client = http_ng.new{
+    backend = config.client
+  }
+  
+  ngx.log(ngx.INFO, 'example policy new')
+
   return setmetatable({}, mt)
 end
 
@@ -21,6 +31,15 @@ end
 
 function _M:access()
   -- ability to deny the request before it is sent upstream
+  local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test' , { data = 'sent from 3scale policy'}, headers = {['Authorization'] = 'admin:admin'}}
+  
+  if err then
+    ngx.log(ngx.WARN, 'error post ACL')
+  end
+
+  ngx.log(ngx.INFO, 'example policy access')
+
+  return true
 end
 
 function _M:content()
