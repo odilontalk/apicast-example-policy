@@ -27,7 +27,7 @@ objects:
         name: apicast-policy:example
     source:
       git:
-        uri: https://github.com/3scale/apicast-example-policy.git
+        uri: https://github.com/odilontalk/apicast-example-policy.git
         ref: 'master'
       type: Git
     strategy:
