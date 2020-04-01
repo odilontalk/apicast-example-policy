@@ -8,9 +8,9 @@ function _M.new(config)
   local self = new(config)
   
   self.config = config or {}
-  -- self.http_client = http_ng.new{
-  --   backend = config.client
-  -- }
+  self.http_client = http_ng.new{
+    backend = config.client
+  }
   
   ngx.log(ngx.INFO, '>>> example policy new')
 
