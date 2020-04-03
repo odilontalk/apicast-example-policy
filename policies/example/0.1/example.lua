@@ -19,15 +19,21 @@ end
 
 function _M:access(context)
   -- ability to deny the request before it is sent upstream
-  local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test' , { data = 'sent from 3scale policy'}, headers = {['Authorization'] = 'admin:admin'}}
+  local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test', 
+    { 
+      url = ngx.var.path, 
+      token = ngx.req.get_headers()['Authorization'], 
+      method = ngx.req.get_method() 
+    }
+  }
   
   if err then
-    ngx.log(ngx.WARN, 'error post ACL')
+    ngx.log(ngx.WARN, 'error with ACL')
   end
 
   ngx.log(ngx.INFO, '>>> example policy access')
 
-  return true
+  return res.status == 200
 end
 
 return _M
