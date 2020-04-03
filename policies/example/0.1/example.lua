@@ -21,7 +21,7 @@ function _M:access(context)
   -- ability to deny the request before it is sent upstream
   local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test', 
     { 
-      url = ngx.var.path, 
+      url = ngx.var.uri, 
       token = ngx.req.get_headers()['Authorization'], 
       method = ngx.req.get_method() 
     }
