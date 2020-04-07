@@ -45,8 +45,8 @@ function _M:access(context)
   local ok = (res.status == 200) 
   
   if not ok then
-    ngx.status = ngx.HTTP_UNAUTHORIZED
-    ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    ngx.status = ngx.HTTP_FORBIDDEN
+    ngx.exit(ngx.HTTP_FORBIDDEN)
   end
 
   return ok
