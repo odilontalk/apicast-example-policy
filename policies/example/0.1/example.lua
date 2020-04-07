@@ -1,6 +1,7 @@
 local _M = require('apicast.policy').new('Example', '0.1')
 local cjson = require('cjson')
 local http_ng = require 'resty.http_ng'
+local re = require('ngx.re')
 
 local new = _M.new
 
@@ -22,7 +23,7 @@ function _M:access(context)
   local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test', 
     { 
       url = ngx.var.uri, 
-      token = ngx.req.get_headers()['Authorization'], 
+      token = re.split(ngx.req.get_headers()['Authorization'], " ")[1], 
       method = ngx.req.get_method() 
     }
   }
