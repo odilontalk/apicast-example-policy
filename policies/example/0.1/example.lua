@@ -30,10 +30,10 @@ function _M:access(context)
   }
   
   if err then
-    ngx.log(ngx.WARN, 'error with ACL')
+    ngx.log(ngx.WARN, 'error with ACL: ', err)
   end
 
-  ngx.log(ngx.INFO, '>>> example policy access')
+  ngx.log(ngx.INFO, '>>> acl response status: ', res.status)
 
   return res.status == 200
 end
