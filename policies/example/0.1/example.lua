@@ -29,10 +29,12 @@ function _M:access(context)
   }
 
   if err then
-    ngx.log(ngx.WARN, 'error with ACL: ', err)
+    ngx.log(ngx.WARN, '>>> error with ACL: ', err)
   end
 
   ngx.log(ngx.INFO, '>>> acl response status: ', res.status)
+  ngx.log(ngx.INFO, '>>> last request headers: ', self.http_client.last_request.headers)
+  ngx.log(ngx.INFO, '>>> last request body: ', self.http_client.last_request.body)
   
   local ok = (res.status == 200) 
   
