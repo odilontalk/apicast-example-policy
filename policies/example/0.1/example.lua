@@ -23,7 +23,7 @@ function _M:access(context)
   local res, err = self.http_client.post{'https://sippe-acl.requestcatcher.com/test', 
     { 
       url = ngx.var.uri, 
-      token = re.split(ngx.req.get_headers()['Authorization'], " ")[1], 
+      token = re.split(ngx.req.get_headers()['Authorization'], " ")[2], 
       method = ngx.req.get_method() 
     }
   }
