@@ -20,7 +20,7 @@ end
 
 function _M:access(context)
   -- ability to deny the request before it is sent upstream
-  local res, err = self.http_client.json.post{'https://auth-cb405.uat.sippe.com.br/v1/acl/auth/token/validate-resource-access-status', 
+  local res, err = self.http_client.json.post{'https://sippe-acl.requestcatcher.com/test', 
     { 
       url = ngx.var.uri, 
       token = re.split(ngx.req.get_headers()['Authorization'], " ")[2], 
@@ -33,8 +33,6 @@ function _M:access(context)
   end
 
   ngx.log(ngx.INFO, '>>> acl response status: ', res.status)
-  ngx.log(ngx.INFO, '>>> last request headers: ', self.http_client.last_request.headers)
-  ngx.log(ngx.INFO, '>>> last request body: ', self.http_client.last_request.body)
   
   local ok = (res.status == 200) 
   
